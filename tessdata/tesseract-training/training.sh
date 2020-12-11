@@ -1,6 +1,6 @@
 #!/bin/bash
 # Constants
-FONT_NAME="Tangaria-21X31TG Medium"
+FONT_NAME="Tangaria-24X36TG Medium"
 MAX_PAGES=2000
 NUM_ITERATIONS=8000
 
