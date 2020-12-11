@@ -4,7 +4,7 @@ This software allows you to translate any text on screen. Basically it is a comb
 
 Guide how to use: https://tangaria.com/translation/
 
-in short: copy the file 'tangaria_font.traineddata' to
+in short: copy the file 'tangaria_font.traineddata' and 'tangaria_eng.traineddata' to
 
 Windows:
 C:/Users/user-name/AppData/Roaming/Gres/ScreenTranslator/assets/tessdata
