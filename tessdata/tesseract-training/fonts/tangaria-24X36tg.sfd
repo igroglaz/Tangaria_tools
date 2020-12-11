@@ -1,7 +1,7 @@
 SplineFontDB: 3.0
-FontName: Tangaria-21X31TG
-FullName: Tangaria-21X31TG
-FamilyName: Tangaria-21X31TG
+FontName: Tangaria-24X36TG
+FullName: Tangaria-24X36TG
+FamilyName: Tangaria-24X36TG
 Weight: Medium
 Copyright: Tangar @ http://tangar.info for Tangaria @ http://tangaria.com
 UComments: "2020-12-9: Created with FontForge (http://fontforge.org)"
@@ -20,7 +20,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1607519820
-ModificationTime: 1607590868
+ModificationTime: 1607684340
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
