@@ -1,0 +1,7 @@
+# .git/info/exclude
+
+../../lib/
+../../status.sh
+
+../../z_lib
+../../zPWMA_lib
