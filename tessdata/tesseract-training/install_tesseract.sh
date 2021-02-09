@@ -1,4 +1,17 @@
 #!/bin/bash
+
+cd "$(dirname "$0")" || {
+    echo "ERROR: Could not change directory..."
+    exit 1
+}
+
+if ! [ -d ./output ]; then
+  mkdir -p ./output
+fi
+if ! [ -d ./train ]; then
+  mkdir -p ./train
+fi
+
 # Update the machine
 sudo apt-get update
 
@@ -33,10 +46,3 @@ git clone https://github.com/tesseract-ocr/langdata_lstm.git
 #Download the best english trained data to tessdata
 cd ./tessdata/ || exit 1
 wget --output-document=eng.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata
-
-if ! [ -d ./output ]; then
-  mkdir -p ./output
-fi
-if ! [ -d ./train ]; then
-  mkdir -p ./train
-fi
