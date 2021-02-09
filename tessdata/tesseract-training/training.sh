@@ -9,6 +9,18 @@ TESSTRAIN=1
 RM_OUTPUT=1
 LSTMEVAL=1
 
+cd "$(dirname "$0")" || {
+    echo "ERROR: Could not change directory..."
+    exit 1
+}
+
+if ! [ -d ./output ]; then
+  mkdir -p ./output
+fi
+if ! [ -d ./train ]; then
+  mkdir -p ./train
+fi
+
 if [ $TESSTRAIN = 1 ]; then
 # Remove the previosly generated training data
 rm -rf train/*
