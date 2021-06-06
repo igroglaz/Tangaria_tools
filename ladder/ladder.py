@@ -1,8 +1,8 @@
 #Вставить адрес папки с файлами!
-#1) для ladder_html формата "C:/Users/_username_/Documents/Python/tangaria/Ladder/"
-ladder_html="C:/Users/shtuk/Documents/Python/tangaria/Ladder/" #Где будет создаваться .html
-#2) для raw_files формата "C:/Users/_username/Documents/Python/tangaria/Ladder/Исходные файлы/"
-raw_files="C:/Users/shtuk/Documents/Python/tangaria/Ladder/Исходные_файлы/" #Файлы Tangaria Character Dump
+#1) для ladder_html формата "C:/Users/<user>/Documents/Python/tangaria/Ladder/"
+ladder_html="" #Где будет создаваться .html
+#2) для raw_files формата "C:/Users/<user>/Documents/Python/tangaria/Ladder/Исходные_файлы/"
+raw_files="chars/" #Файлы Tangaria Character Dump
 
 #Работа с шапкой html-страницы
 html_str = """
