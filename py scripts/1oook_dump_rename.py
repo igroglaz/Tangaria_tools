@@ -1,4 +1,4 @@
-# first Python program by igroglaz ;D
+# rename dump files
 
 import os # import OS module
 
