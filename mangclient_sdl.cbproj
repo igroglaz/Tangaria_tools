@@ -49,9 +49,9 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppConsoleApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(IncludePath)</IncludePath>
+        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\PWMA\;..\PWMA\PWMAngband\src\client\;$(IncludePath)</IncludePath>
         <_TCHARMapping>char</_TCHARMapping>
-        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\PWMA\;..\PWMA\PWMAngband\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>mangclient_sdl</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -62,7 +62,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <ILINK_LibraryPath>D:\GitHub\Tangaria\PWMAngband\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>D:\GitHub\PWMA\PWMAngband\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -87,14 +87,14 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\Tangaria\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>D:\GitHub\PWMA\PWMAngband\</FinalOutputDir>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;SOUND_SDL;USE_SDL;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;D:\GitHub\Tangaria\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
-        <BCC_OutputDir>D:\GitHub\Tangaria\PWMAngband\</BCC_OutputDir>
+        <BCC_IncludePath>D:\GitHub\PWMA\PWMAngband\src\win;D:\GitHub\PWMA\PWMAngband\src\common;D:\GitHub\PWMA\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
+        <BCC_OutputDir>D:\GitHub\PWMA\PWMAngband\</BCC_OutputDir>
         <BCC_PCHCache>true</BCC_PCHCache>
-        <ILINK_LibraryPath>D:\GitHub\Tangaria\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>D:\GitHub\PWMA\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -663,7 +663,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Tangaria\PWMAngband\src\client\main.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\PWMA\PWMAngband\src\client\main.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

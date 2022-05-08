@@ -49,9 +49,9 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppConsoleApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\Tangaria\PWMAngband\src\server\;$(IncludePath)</IncludePath>
+        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\PWMA\PWMAngband\src\server\;$(IncludePath)</IncludePath>
         <Multithreaded>true</Multithreaded>
-        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\Tangaria\PWMAngband\src\server\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\PWMA\PWMAngband\src\server\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <_TCHARMapping>char</_TCHARMapping>
         <SanitizedProjectName>mangband</SanitizedProjectName>
     </PropertyGroup>
@@ -63,6 +63,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
+        <BCC_PCHName_Clang>mangband.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -87,12 +88,12 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\Tangaria\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>D:\GitHub\PWMA\PWMAngband\</FinalOutputDir>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;$(BCC_IncludePath)</BCC_IncludePath>
+        <BCC_IncludePath>D:\GitHub\PWMA\PWMAngband\src\win;D:\GitHub\PWMA\PWMAngband\src\common;$(BCC_IncludePath)</BCC_IncludePath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
-        <BCC_OutputDir>D:\tmp\mang_server_obj\</BCC_OutputDir>
+        <BCC_OutputDir>D:\GitHub\PWMA\PWMAngband\</BCC_OutputDir>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -100,14 +101,16 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
+        <BCC_PCHName_Clang>mangband.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <ItemGroup>
+        <PCHCompile Include="mangband.h">
+            <BuildOrder>0</BuildOrder>
+            <PCH>true</PCH>
+        </PCHCompile>
         <CppCompile Include="PWMAngband\src\common\buildid.c">
             <BuildOrder>2</BuildOrder>
         </CppCompile>
-        <None Include="PWMAngband\src\common\config.h">
-            <BuildOrder>130</BuildOrder>
-        </None>
         <CppCompile Include="PWMAngband\src\common\datafile.c">
             <BuildOrder>3</BuildOrder>
         </CppCompile>
@@ -117,12 +120,6 @@
         <CppCompile Include="PWMAngband\src\common\guid.c">
             <BuildOrder>5</BuildOrder>
         </CppCompile>
-        <None Include="PWMAngband\src\common\list-message.h">
-            <BuildOrder>133</BuildOrder>
-        </None>
-        <None Include="PWMAngband\src\common\list-mon-message.h">
-            <BuildOrder>132</BuildOrder>
-        </None>
         <CppCompile Include="PWMAngband\src\common\md5.c">
             <BuildOrder>6</BuildOrder>
         </CppCompile>
@@ -225,9 +222,21 @@
         <CppCompile Include="PWMAngband\src\server\display-ui.c">
             <BuildOrder>39</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\server\effects-info.c">
-            <BuildOrder>41</BuildOrder>
+        <CppCompile Include="PWMAngband\src\server\effect-handler-attack.c">
+            <BuildOrder>130</BuildOrder>
         </CppCompile>
+        <CppCompile Include="PWMAngband\src\server\effect-handler-general.c">
+            <BuildOrder>131</BuildOrder>
+        </CppCompile>
+        <None Include="PWMAngband\src\server\effect-handler.h">
+            <BuildOrder>129</BuildOrder>
+        </None>
+        <CppCompile Include="PWMAngband\src\server\effects-info.c">
+            <BuildOrder>132</BuildOrder>
+        </CppCompile>
+        <None Include="PWMAngband\src\server\effects-info.h">
+            <BuildOrder>133</BuildOrder>
+        </None>
         <CppCompile Include="PWMAngband\src\server\effects.c">
             <BuildOrder>40</BuildOrder>
         </CppCompile>
@@ -486,9 +495,6 @@
         <CppCompile Include="PWMAngband\src\server\wilderness.c">
             <BuildOrder>125</BuildOrder>
         </CppCompile>
-        <None Include="PWMAngband\src\server\wilderness.h">
-            <BuildOrder>131</BuildOrder>
-        </None>
         <CppCompile Include="PWMAngband\src\server\z-quark.c">
             <BuildOrder>126</BuildOrder>
         </CppCompile>
@@ -661,6 +667,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="PWMAngband\src\server\effect-handler-general.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="PWMAngband\src\server\mon-desc.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -674,6 +686,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="PWMAngband\src\server\player.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\GitHub\PWMA\PWMAngband\src\server\main.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -830,6 +848,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="PWMAngband\src\server\obj-ui.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="PWMAngband\src\server\effect-handler-attack.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -1007,12 +1031,6 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="PWMAngband\src\server\score-ui.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="D:\GitHub\Tangaria\PWMAngband\src\server\main.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
