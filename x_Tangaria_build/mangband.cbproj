@@ -106,7 +106,7 @@
         <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;$(BCC_IncludePath)</BCC_IncludePath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
-        <BCC_OutputDir>D:\tmp\mang_server_obj\</BCC_OutputDir>
+        <BCC_OutputDir>.\BCCFiles\</BCC_OutputDir>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
