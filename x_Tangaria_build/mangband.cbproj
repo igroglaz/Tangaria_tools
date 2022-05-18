@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{04C4E420-C76A-4206-B505-CF5058E7606F}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
@@ -54,9 +54,9 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppConsoleApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\Tangaria\PWMAngband\src\server\;$(IncludePath)</IncludePath>
+        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;PWMAngband\src\server\;$(IncludePath)</IncludePath>
         <Multithreaded>true</Multithreaded>
-        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;D:\GitHub\;D:\GitHub\Tangaria\PWMAngband\src\server\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\server\;PWMAngband\src\server\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <_TCHARMapping>char</_TCHARMapping>
         <SanitizedProjectName>mangband</SanitizedProjectName>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
@@ -101,9 +101,9 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\Tangaria\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>PWMAngband\</FinalOutputDir>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;$(BCC_IncludePath)</BCC_IncludePath>
+        <BCC_IncludePath>PWMAngband\src\win;PWMAngband\src\common;$(BCC_IncludePath)</BCC_IncludePath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <BCC_OutputDir>.\BCCFiles\</BCC_OutputDir>
@@ -1062,7 +1062,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="D:\GitHub\Tangaria\PWMAngband\src\server\main.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="PWMAngband\src\server\main.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
