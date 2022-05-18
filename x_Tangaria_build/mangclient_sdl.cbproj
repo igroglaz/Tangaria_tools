@@ -1,15 +1,30 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{1304C40B-728A-448C-8EBF-3A8C562B8CAC}</ProjectGuid>
-        <ProjectVersion>18.8</ProjectVersion>
+        <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <TargetedPlatforms>1</TargetedPlatforms>
+        <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Console</AppType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android' and '$(Base)'=='true') or '$(Base_Android)'!=''">
+        <Base_Android>true</Base_Android>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Base)'=='true') or '$(Base_iOSDevice64)'!=''">
+        <Base_iOSDevice64>true</Base_iOSDevice64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Base)'=='true') or '$(Base_iOSSimulator)'!=''">
+        <Base_iOSSimulator>true</Base_iOSSimulator>
+        <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
@@ -17,9 +32,26 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
         <Cfg_1>true</Cfg_1>
         <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Cfg_1)'=='true') or '$(Cfg_1_iOSDevice64)'!=''">
+        <Cfg_1_iOSDevice64>true</Cfg_1_iOSDevice64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Cfg_1)'=='true') or '$(Cfg_1_iOSSimulator)'!=''">
+        <Cfg_1_iOSSimulator>true</Cfg_1_iOSSimulator>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
@@ -33,6 +65,18 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice64' and '$(Cfg_2)'=='true') or '$(Cfg_2_iOSDevice64)'!=''">
+        <Cfg_2_iOSDevice64>true</Cfg_2_iOSDevice64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Cfg_2)'=='true') or '$(Cfg_2_iOSSimulator)'!=''">
+        <Cfg_2_iOSSimulator>true</Cfg_2_iOSSimulator>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
         <Cfg_2_Win32>true</Cfg_2_Win32>
         <CfgParent>Cfg_2</CfgParent>
@@ -41,7 +85,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
-        <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
+        <IntermediateOutputDir>.\ObjectFiles\$(Platform)\$(Config)</IntermediateOutputDir>
         <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
         <BCC_wpar>false</BCC_wpar>
         <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
@@ -49,10 +93,31 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppConsoleApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(IncludePath)</IncludePath>
+        <IncludePath>..\..\src\win\;..\..\src\common\;..\..\src\client\;$(IncludePath)</IncludePath>
         <_TCHARMapping>char</_TCHARMapping>
-        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>..\..\src\win\$(PLATFORM);..\..\src\win\;..\..\src\common\;..\..\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>mangclient_sdl</SanitizedProjectName>
+        <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
+        <Defines>STRICT;BCC_IDE;WINDOWS;SOUND_SDL;USE_SDL;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Android)'!=''">
+        <Android_LauncherIcon192>$(BDS)\bin\Artwork\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
+        <VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <BT_BuildType>Debug</BT_BuildType>
+        <EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_iOSDevice64)'!=''">
+        <iOS_AppStore1024>$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_1024x1024.png</iOS_AppStore1024>
+        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers</VerInfo_Keys>
+        <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_iOSSimulator)'!=''">
+        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0;CFBundleShortVersionString=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSCameraUsageDescription=The reason for accessing the camera;NSFaceIDUsageDescription=The reason for accessing the face id;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers</VerInfo_Keys>
+        <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;$(PackageImports)</PackageImports>
@@ -62,7 +127,15 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <ILINK_LibraryPath>D:\GitHub\Tangaria\PWMAngband\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>..\..\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
+        <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -86,247 +159,260 @@
         <ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_iOSDevice64)'!=''">
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_iOSSimulator)'!=''">
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\Tangaria\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;SOUND_SDL;USE_SDL;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;D:\GitHub\Tangaria\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
-        <BCC_OutputDir>D:\GitHub\Tangaria\PWMAngband\</BCC_OutputDir>
+        <BCC_IncludePath>..\..\src\win\;..\..\src\common\;..\..\src\client\;$(BCC_IncludePath)</BCC_IncludePath>
         <BCC_PCHCache>true</BCC_PCHCache>
-        <ILINK_LibraryPath>D:\GitHub\Tangaria\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_OutputDir>.\BCCFiles\</BCC_OutputDir>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_iOSDevice64)'!=''">
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_iOSSimulator)'!=''">
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>(None)</Manifest_File>
     </PropertyGroup>
     <ItemGroup>
         <PCHCompile Include="mangclient_sdl.h">
             <BuildOrder>0</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
-        <CppCompile Include="PWMAngband\src\client\c-cmd-obj.c">
+        <CppCompile Include="..\..\src\client\c-cmd-obj.c">
             <BuildOrder>28</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\c-cmd.c">
+        <CppCompile Include="..\..\src\client\c-cmd.c">
             <BuildOrder>27</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\c-option.c">
+        <CppCompile Include="..\..\src\client\c-option.c">
             <BuildOrder>31</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\c-player.c">
+        <CppCompile Include="..\..\src\client\c-player.c">
             <BuildOrder>32</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\cmd-core.c">
+        <CppCompile Include="..\..\src\client\cmd-core.c">
             <BuildOrder>29</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\conf.c">
+        <CppCompile Include="..\..\src\client\conf.c">
             <BuildOrder>30</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\game-event.c">
+        <CppCompile Include="..\..\src\client\game-event.c">
             <BuildOrder>33</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\game-input.c">
+        <CppCompile Include="..\..\src\client\game-input.c">
             <BuildOrder>34</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\grafmode.c">
+        <CppCompile Include="..\..\src\client\grafmode.c">
             <BuildOrder>35</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\main-gcu.c">
+        <CppCompile Include="..\..\src\client\main-gcu.c">
             <BuildOrder>36</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\main-sdl.c">
+        <CppCompile Include="..\..\src\client\main-sdl.c">
             <BuildOrder>37</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\main-win.c">
+        <CppCompile Include="..\..\src\client\main-win.c">
             <BuildOrder>38</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\main.c">
+        <CppCompile Include="..\..\src\client\main.c">
             <BuildOrder>1</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\netclient.c">
+        <CppCompile Include="..\..\src\client\netclient.c">
             <BuildOrder>39</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\player-properties.c">
+        <CppCompile Include="..\..\src\client\player-properties.c">
             <BuildOrder>40</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\set_focus.c">
+        <CppCompile Include="..\..\src\client\set_focus.c">
             <BuildOrder>41</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\snd-sdl.c">
+        <CppCompile Include="..\..\src\client\snd-sdl.c">
             <BuildOrder>42</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\snd-win.c">
+        <CppCompile Include="..\..\src\client\snd-win.c">
             <BuildOrder>43</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\sound-core.c">
+        <CppCompile Include="..\..\src\client\sound-core.c">
             <BuildOrder>44</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-birth.c">
+        <CppCompile Include="..\..\src\client\ui-birth.c">
             <BuildOrder>45</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-command.c">
+        <CppCompile Include="..\..\src\client\ui-command.c">
             <BuildOrder>46</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-context.c">
+        <CppCompile Include="..\..\src\client\ui-context.c">
             <BuildOrder>47</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-curse.c">
+        <CppCompile Include="..\..\src\client\ui-curse.c">
             <BuildOrder>48</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-death.c">
+        <CppCompile Include="..\..\src\client\ui-death.c">
             <BuildOrder>49</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-display.c">
+        <CppCompile Include="..\..\src\client\ui-display.c">
             <BuildOrder>50</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-event.c">
+        <CppCompile Include="..\..\src\client\ui-event.c">
             <BuildOrder>51</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-game.c">
+        <CppCompile Include="..\..\src\client\ui-game.c">
             <BuildOrder>52</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-init.c">
+        <CppCompile Include="..\..\src\client\ui-init.c">
             <BuildOrder>53</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-input.c">
+        <CppCompile Include="..\..\src\client\ui-input.c">
             <BuildOrder>54</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-keymap.c">
+        <CppCompile Include="..\..\src\client\ui-keymap.c">
             <BuildOrder>55</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-knowledge.c">
+        <CppCompile Include="..\..\src\client\ui-knowledge.c">
             <BuildOrder>56</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-menu.c">
+        <CppCompile Include="..\..\src\client\ui-menu.c">
             <BuildOrder>57</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-message.c">
+        <CppCompile Include="..\..\src\client\ui-message.c">
             <BuildOrder>58</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-object.c">
+        <CppCompile Include="..\..\src\client\ui-object.c">
             <BuildOrder>59</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-options.c">
+        <CppCompile Include="..\..\src\client\ui-options.c">
             <BuildOrder>60</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-output.c">
+        <CppCompile Include="..\..\src\client\ui-output.c">
             <BuildOrder>61</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-prefs.c">
+        <CppCompile Include="..\..\src\client\ui-prefs.c">
             <BuildOrder>62</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-spell.c">
+        <CppCompile Include="..\..\src\client\ui-spell.c">
             <BuildOrder>63</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-store.c">
+        <CppCompile Include="..\..\src\client\ui-store.c">
             <BuildOrder>64</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\ui-term.c">
+        <CppCompile Include="..\..\src\client\ui-term.c">
             <BuildOrder>65</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\client\win-layout.c">
+        <CppCompile Include="..\..\src\client\win-layout.c">
             <BuildOrder>66</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\buildid.c">
+        <CppCompile Include="..\..\src\common\buildid.c">
             <BuildOrder>2</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\datafile.c">
+        <CppCompile Include="..\..\src\common\datafile.c">
             <BuildOrder>3</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\display.c">
+        <CppCompile Include="..\..\src\common\display.c">
             <BuildOrder>4</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\guid.c">
+        <CppCompile Include="..\..\src\common\guid.c">
             <BuildOrder>5</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\md5.c">
+        <CppCompile Include="..\..\src\common\md5.c">
             <BuildOrder>6</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\net-win.c">
+        <CppCompile Include="..\..\src\common\net-win.c">
             <BuildOrder>8</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\obj-gear-common.c">
+        <CppCompile Include="..\..\src\common\obj-gear-common.c">
             <BuildOrder>9</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\obj-tval.c">
+        <CppCompile Include="..\..\src\common\obj-tval.c">
             <BuildOrder>10</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\option.c">
+        <CppCompile Include="..\..\src\common\option.c">
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\parser.c">
+        <CppCompile Include="..\..\src\common\parser.c">
             <BuildOrder>12</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\randname.c">
+        <CppCompile Include="..\..\src\common\randname.c">
             <BuildOrder>13</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\sockbuf.c">
+        <CppCompile Include="..\..\src\common\sockbuf.c">
             <BuildOrder>14</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\source.c">
+        <CppCompile Include="..\..\src\common\source.c">
             <BuildOrder>15</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\util.c">
+        <CppCompile Include="..\..\src\common\util.c">
             <BuildOrder>16</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-bitflag.c">
+        <CppCompile Include="..\..\src\common\z-bitflag.c">
             <BuildOrder>17</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-color.c">
+        <CppCompile Include="..\..\src\common\z-color.c">
             <BuildOrder>18</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-dice.c">
+        <CppCompile Include="..\..\src\common\z-dice.c">
             <BuildOrder>19</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-expression.c">
+        <CppCompile Include="..\..\src\common\z-expression.c">
             <BuildOrder>20</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-file.c">
+        <CppCompile Include="..\..\src\common\z-file.c">
             <BuildOrder>21</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-form.c">
+        <CppCompile Include="..\..\src\common\z-form.c">
             <BuildOrder>22</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-rand.c">
+        <CppCompile Include="..\..\src\common\z-rand.c">
             <BuildOrder>23</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-set.c">
+        <CppCompile Include="..\..\src\common\z-set.c">
             <BuildOrder>24</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-type.c">
+        <CppCompile Include="..\..\src\common\z-type.c">
             <BuildOrder>25</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-util.c">
+        <CppCompile Include="..\..\src\common\z-util.c">
             <BuildOrder>26</BuildOrder>
         </CppCompile>
-        <CppCompile Include="PWMAngband\src\common\z-virt.c">
+        <CppCompile Include="..\..\src\common\z-virt.c">
             <BuildOrder>27</BuildOrder>
         </CppCompile>
-        <ResourceCompile Include="PWMAngband\src\win\angband.rc">
+        <ResourceCompile Include="..\..\src\win\angband.rc">
             <Form>angband.res</Form>
             <BuildOrder>67</BuildOrder>
         </ResourceCompile>
-        <LibFiles Include="PWMAngband\src\_SDL\freetype.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="..\..\src\win\freetype.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>68</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
-        <LibFiles Include="PWMAngband\src\_SDL\SDL.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="..\..\src\win\SDL.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>69</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
-        <LibFiles Include="PWMAngband\src\_SDL\SDL_image.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="..\..\src\win\SDL_image.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>70</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
-        <LibFiles Include="PWMAngband\src\_SDL\SDL_mixer.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="..\..\src\win\SDL_mixer.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>71</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
-        <LibFiles Include="PWMAngband\src\_SDL\SDL_ttf.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="..\..\src\win\SDL_ttf.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>72</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
@@ -354,12 +440,12 @@
                     <ProjectProperties Name="IndexFiles">False</ProjectProperties>
                 </ProjectProperties>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k260.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp260.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k270.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp270.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="PWMAngband\src\common\sockbuf.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\main-gcu.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -370,25 +456,25 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-event.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName=".\$(Platform)\$(Config)mangclient_sdl.tds" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>mangclient_sdl.tds</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\c-player.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\buildid.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-knowledge.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\datafile.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\obj-tval.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\c-cmd.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -399,127 +485,111 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\c-cmd-obj.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\snd-win.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\player-properties.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-set.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-knowledge.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-message.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\mangclient_sdl.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>mangclient_sdl.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-bitflag.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\main.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-store.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\win\SDL_image.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\main.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32270mt.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64270.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\game-event.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\grafmode.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-expression.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-rand.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64270mt.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\cmd-core.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-options.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\option.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\c-player.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\randname.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\_SDL\SDL_mixer.lib" Configuration="Debug" Class="ProjectFile">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32c270.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-init.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\c-cmd.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-spell.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\_SDL\SDL_ttf.lib" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-command.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\obj-gear-common.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\win\freetype.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-birth.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\mangclient_sdl.tds" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win32">
-                        <RemoteName>mangclient_sdl.tds</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\snd-win.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\netclient.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-color.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-init.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\set_focus.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -530,14 +600,26 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\..\src\client\grafmode.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-birth.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgstl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\util.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName=".\$(Platform)\$(Config)mangclient_sdl.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>mangclient_sdl.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -546,37 +628,31 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\game-input.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\obj-tval.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\win-layout.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\game-input.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\main-win.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\main-win.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\main-sdl.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\main-sdl.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\guid.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\game-event.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-keymap.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -587,43 +663,66 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-context.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\c-cmd-obj.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-object.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\snd-sdl.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\source.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-input.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-output.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-dice.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-menu.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\win\SDL.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-set.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-menu.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\cmd-core.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\sound-core.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\z-util.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\z-file.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32270.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\md5.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -634,25 +733,43 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-file.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\c-option.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-keymap.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-options.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-curse.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-death.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\c-option.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\conf.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\win-layout.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\netclient.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\win\SDL_mixer.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -663,103 +780,73 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Tangaria\PWMAngband\src\client\main.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\sockbuf.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-prefs.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\parser.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-death.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\source.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\snd-sdl.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-display.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-input.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\buildid.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-message.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\player-properties.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\parser.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\win\SDL_ttf.lib" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\randname.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-context.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-game.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-term.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\display.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\guid.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\md5.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-game.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-spell.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\_SDL\SDL.lib" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\option.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-dice.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-virt.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-form.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-prefs.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -767,6 +854,24 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\util.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\display.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\z-virt.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -785,48 +890,78 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\main-gcu.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-display.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\iossimulator\libpcre.dylib" Class="DependencyModule">
                     <Platform Name="iOSSimulator">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\_SDL\SDL_image.lib" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-type.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\_SDL\freetype.lib" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-bitflag.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\conf.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-color.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\sound-core.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\client\ui-object.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-type.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\net-win.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-curse.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-store.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-output.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\datafile.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\client\ui-event.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\obj-gear-common.c" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\src\common\z-form.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -842,37 +977,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\net-win.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c270mt.dll" Class="DependencyModule">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-command.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\set_focus.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\client\ui-term.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-expression.c" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="PWMAngband\src\common\z-util.c" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\..\src\common\z-rand.c" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -1011,6 +1121,16 @@
                     </Platform>
                     <Platform Name="Android64">
                         <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon192">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -1244,6 +1364,32 @@
                         <Operation>0</Operation>
                     </Platform>
                 </DeployClass>
+                <DeployClass Name="iOS_AppStore1024">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon152">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon167">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
                 <DeployClass Name="iPad_Launch1024x768">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
@@ -1343,6 +1489,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
+                <DeployClass Name="iPad_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
                 <DeployClass Name="iPad_Launch768x1024">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
@@ -1351,6 +1507,66 @@
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_SpotLight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon180">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -1453,6 +1669,16 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
+                <DeployClass Name="iPhone_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
                 <DeployClass Name="iPhone_Launch320">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
@@ -1461,6 +1687,16 @@
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -1508,6 +1744,86 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification60">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting87">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
                 <DeployClass Name="ProjectAndroidManifest">
                     <Platform Name="Android">
                         <Operation>1</Operation>
@@ -1529,6 +1845,7 @@
                 <DeployClass Name="ProjectiOSDeviceResourceRules"/>
                 <DeployClass Name="ProjectiOSEntitlements"/>
                 <DeployClass Name="ProjectiOSInfoPList"/>
+                <DeployClass Name="ProjectiOSLaunchScreen"/>
                 <DeployClass Name="ProjectiOSResource">
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
@@ -1630,7 +1947,11 @@
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
             </Deployment>
             <Platforms>
+                <Platform value="Android">False</Platform>
+                <Platform value="iOSDevice64">False</Platform>
+                <Platform value="iOSSimulator">False</Platform>
                 <Platform value="Win32">True</Platform>
+                <Platform value="Win64">True</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
