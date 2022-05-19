@@ -1,2 +1,9 @@
 
 *.local
+
+**/.vs/**
+**/__history/**
+**/BCCFiles/
+**/.vs/**
+**/ObjectFiles/**
+**/ObjectFiles/**
