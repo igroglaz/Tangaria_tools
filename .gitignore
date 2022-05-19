@@ -1,3 +1,13 @@
 Tangeria_CoOp/Release_x64/*
 Tangeria_CoOp/Release_x64/**
 *.local
+
+x_Tangaria_build/PWMAngband
+x_Tangaria_build/PWMAngband/*
+x_Tangaria_build/PWMAngband/*
+
+x_Tangaria_build/__history/
+**/__history/**
+**/ObjectFiles/**
+**/BCCFiles/**
+x_Tangaria_build/Win64/
