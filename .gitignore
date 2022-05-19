@@ -7,3 +7,7 @@
 **/.vs/**
 **/ObjectFiles/**
 **/ObjectFiles/**
+
+x_Tangaria_build/PWMAngband
+
+x_Tangaria_build/Win64/
