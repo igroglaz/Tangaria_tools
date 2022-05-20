@@ -1,19 +1,18 @@
-Tangeria_CoOp/Release_x64/*
-Tangeria_CoOp/Release_x64/**
+*/Release_Win32/*
+*/Release_x64/**
 *.local
-
-x_Tangaria_build/PWMAngband
-x_Tangaria_build/PWMAngband/*
-x_Tangaria_build/PWMAngband/*
-
-x_Tangaria_build/__history/
+**/.vs/**
 **/__history/**
-**/ObjectFiles/**
 **/BCCFiles/**
-x_Tangaria_build/Win64/
+**/.vs/**
+**/ObjectFiles/**
 
-Tangeria_CoOp/.vs/
+**/Win32/Debug/**
+**/Win32/Release/**
+**/Win64/Debug/**
+**/Win64/Release/**
+x_Tangaria_build/PWMAngband/**
+*.user
 
-x_Tangaria_build/.vs/
 
-x_Tangaria_build/Win32/Debug/
+
