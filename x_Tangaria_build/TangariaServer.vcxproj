@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{04C4E420-C76A-4206-B505-CF5058E7606F}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <RootNamespace>Mangband</RootNamespace>
+    <ProjectName>mangband</ProjectName>
+    <PlatformToolset>v142</PlatformToolset>
+    <!-- 142 for VS2019(Default);143 for VS2022-->
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '16' Or '$(VisualStudioVersion)' == ''">v142</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '17'">v143</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="GlobalsPart2">
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <!--
+  Converting Relative to Absolute Path based on https://stackoverflow.com/questions/176931/how-can-i-get-msbuild-to-evaluate-and-print-the-full-path-when-given-a-relative
+  $([System.IO.Path]::GetFullPath('XXX'))
+  -->
+  <!--Assuming Project Files is SubFolder of Main Project Root-->
+  <PropertyGroup Label="UserMacros">
+    <ParentOfRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\'))</ParentOfRoot>
+    <RootDirectory>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\PWMAngband\'))</RootDirectory>
+    <SourceRoot>$([System.IO.Path]::GetFullPath('$(RootDirectory)\src\'))</SourceRoot>
+    <WinIncludeRoot>$([System.IO.Path]::GetFullPath('$(SourceRoot)\win\'))</WinIncludeRoot>
+    <LibDataDir>$([System.IO.Path]::GetFullPath('$(RootDirectory)\lib\'))</LibDataDir>
+    <SDLOutputDir>$([System.IO.Path]::GetFullPath('$(ParentOfRoot)SDL2Output\'))</SDLOutputDir>
+    <NetcodeType>WinsockNetcode</NetcodeType>
+    <!--Later add netcode option SDLNetCode, to use SDL_net based code for the netcode instead-->
+	<UserProjectSettingsFile>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)TangeriaServer.vcxproj.user'))</UserProjectSettingsFile>
+    <!--Option of Modern for later C or ANSI for C99/C89-->
+    <CStandardType>ANSI</CStandardType>
+  </PropertyGroup>
+  <!--Import macro overrides from user props-->
+  <Import Project="$(UserProjectSettingsFile)"  Condition="exists('$(UserProjectSettingsFile)')"/>
+  <PropertyGroup>
+    <!--     <ZLibDir>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)'))</ZLibDir> -->
+    <ZLibLibrary Condition="'$(ZLibLibrary)'=='' Or !Exists('$(ZLibLibrary)')">$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\$(Configuration)\zlib.lib'))</ZLibLibrary>
+    <ZLibDLL>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\zlib.dll'))</ZLibDLL>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!--     <LibPngDir>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)'))</LibPngDir> -->
+    <!--Define LibPngDir to use non-default LibPng directory-->
+    <LibPngLibrary Condition="'$(LibPngLibrary)'=='' Or !Exists('$(LibPngLibrary)')">$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\$(Configuration)\libpng.lib'))</LibPngLibrary>
+    <LibPngDLL>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\libpng.dll'))</LibPngDLL>
+  </PropertyGroup>
+  <PropertyGroup Label="GlobalIncludes">
+    <IncludePath>$(MSBuildProjectDirectory)\src;$(WinIncludeRoot);$(SDLDir)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)...\lib\um\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)...\lib\um\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="OutputInfo">
+    <OutDir>.\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>.\ObjectFiles\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <LinkIncremental>true</LinkIncremental>
+    <CustomBuildAfterTargets>Build</CustomBuildAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <!--_WINSOCK_DEPRECATED_NO_WARNINGS Temporary until replace with SDL_Net or newer non-DEPRECATED code-->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking Condition="'$(Configuration)'=='Release'">true</FunctionLevelLinking>
+      <IntrinsicFunctions Condition="'$(Configuration)'=='Release'">true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">_DEBUG;SOUND;USE_PRIVATE_PATHS;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CONSOLE;STRICT;WINDOWS;BUILDINGWithVS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Release'">NDEBUG;SOUND;USE_PRIVATE_PATHS;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CONSOLE;STRICT;WINDOWS;BUILDINGWithVS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4703</DisableSpecificWarnings>
+      <LanguageStandard_C Condition="'$(CStandardType)'=='Modern'">stdc17</LanguageStandard_C>
+      <DisableLanguageExtensions Condition="'$(CStandardType)'=='ANSI'">true</DisableLanguageExtensions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding Condition="'$(Configuration)'=='Release'">true</EnableCOMDATFolding>
+      <OptimizeReferences Condition="'$(Configuration)'=='Release'">true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies Condition="'$(ZLibLibrary)'!=''">$(ZLibLibrary);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(LibPngLibrary)'!=''">$(LibPngLibrary);%(AdditionalDependencies)</AdditionalDependencies>
+      <!--       <AdditionalDependencies Condition="'$(NetcodeType)'=='UseAlternativeNetcode">$(SDLNetLibrary);%(AdditionalDependencies)</AdditionalDependencies> -->
+	  <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">msimg32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)'=='Release'">msimg32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup Label="ImageAndScreenshotStuff">
+    <ClInclude Include="$(RootDirectory)src\win\png.h" Condition="'$(LibPngDir)'==''">
+    </ClInclude>
+    <ClInclude Include="$(RootDirectory)src\win\pngconf.h" Condition="'$(LibPngDir)'==''">
+    </ClInclude>
+    <ClInclude Include="$(RootDirectory)src\win\pnglibconf.h" Condition="'$(LibPngDir)'==''">
+    </ClInclude>
+    <ClInclude Include="$(LibPngDir)png.h" Condition="'$(LibPngDir)'!=''">
+    </ClInclude>
+    <ClInclude Include="$(LibPngDir)pngconf.h" Condition="'$(LibPngDir)'!=''">
+    </ClInclude>
+    <ClInclude Include="$(LibPngDir)pnglibconf.h" Condition="'$(LibPngDir)'!=''">
+    </ClInclude>
+    <!--
+    <ClInclude Include="$(RootDirectory)src\win\zconf.h" Condition="'$(ZLibDir)'==''">
+    </ClInclude>
+    <ClInclude Include="$(RootDirectory)src\win\zlib.h" Condition="'$(ZLibDir)'==''">
+    </ClInclude>
+    <ClInclude Include="$(ZLibDir)zconf.h" Condition="'$(ZLibDir)'!=''">
+    </ClInclude>
+    <ClInclude Include="$(ZLibDir)zlib.h" Condition="'$(ZLibDir)'!=''">
+    </ClInclude>
+-->
+    <ClInclude Include="$(RootDirectory)src\win\readdib.h">
+    </ClInclude>
+    <ClInclude Include="$(RootDirectory)src\win\win-menu.h" />
+    <ClInclude Include="$(RootDirectory)src\win\win-term.h" />
+    <ClCompile Include="$(RootDirectory)src\win\readdib.c">
+    </ClCompile>
+    <ClCompile Include="$(RootDirectory)src\win\readpng.c">
+    </ClCompile>
+    <ClCompile Include="$(RootDirectory)src\win\scrnshot.c" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup Label="CommonHeaders">
+    <ClInclude Include="$(RootDirectory)src\common\angband.h" />
+    <ClInclude Include="$(RootDirectory)src\common\bit.h" />
+    <ClInclude Include="$(RootDirectory)src\common\buildid.h" />
+    <ClInclude Include="$(RootDirectory)src\common\config.h" />
+    <ClInclude Include="$(RootDirectory)src\common\datafile.h" />
+    <ClInclude Include="$(RootDirectory)src\common\display.h" />
+    <ClInclude Include="$(RootDirectory)src\common\guid.h" />
+    <ClInclude Include="$(RootDirectory)src\common\h-basic.h" />
+    <ClInclude Include="$(RootDirectory)src\common\h-net.h" />
+    <ClInclude Include="$(RootDirectory)src\common\h-quark.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-elements.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-equip-slots.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-history-types.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-ignore-types.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-kind-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-message.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-mon-message.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-mon-race-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-mon-spells.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-mon-temp-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-mon-timed.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-object-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-object-modifiers.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-options.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-packets.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-parser-errors.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-player-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-player-timed.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-projections.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-square-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-stats.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-trap-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\common\list-tvals.h" />
+    <ClInclude Include="$(RootDirectory)src\common\md5.h" />
+    <ClInclude Include="$(RootDirectory)src\common\mon-common.h" />
+    <ClInclude Include="$(RootDirectory)src\common\net-unix.h" />
+    <ClInclude Include="$(RootDirectory)src\common\net-win.h" />
+    <ClInclude Include="$(RootDirectory)src\common\obj-common.h" />
+    <ClInclude Include="$(RootDirectory)src\common\obj-gear-common.h" />
+    <ClInclude Include="$(RootDirectory)src\common\obj-tval.h" />
+    <ClInclude Include="$(RootDirectory)src\common\option.h" />
+    <ClInclude Include="$(RootDirectory)src\common\pack.h" />
+    <ClInclude Include="$(RootDirectory)src\common\parser.h" />
+    <ClInclude Include="$(RootDirectory)src\common\player-common-calcs.h" />
+    <ClInclude Include="$(RootDirectory)src\common\player-common.h" />
+    <ClInclude Include="$(RootDirectory)src\common\player-state.h" />
+    <ClInclude Include="$(RootDirectory)src\common\randname.h" />
+    <ClInclude Include="$(RootDirectory)src\common\sockbuf.h" />
+    <ClInclude Include="$(RootDirectory)src\common\source.h" />
+    <ClInclude Include="$(RootDirectory)src\common\store-types.h" />
+    <ClInclude Include="$(RootDirectory)src\common\trap-common.h" />
+    <ClInclude Include="$(RootDirectory)src\common\util.h" />
+    <ClInclude Include="$(RootDirectory)src\common\version.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-bitflag.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-color.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-defines.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-dice.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-expression.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-file.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-form.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-msg.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-rand.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-set.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-spells.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-type.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-util.h" />
+    <ClInclude Include="$(RootDirectory)src\common\z-virt.h" />
+  </ItemGroup>
+  <ItemGroup Label="CommonSrc">
+    <ClCompile Include="$(RootDirectory)src\common\buildid.c" />
+    <ClCompile Include="$(RootDirectory)src\common\datafile.c" />
+    <ClCompile Include="$(RootDirectory)src\common\display.c" />
+    <ClCompile Include="$(RootDirectory)src\common\guid.c" />
+    <ClCompile Include="$(RootDirectory)src\common\md5.c" />
+    <ClCompile Include="$(RootDirectory)src\common\net-unix.c" />
+    <ClCompile Include="$(RootDirectory)src\common\net-win.c" />
+    <ClCompile Include="$(RootDirectory)src\common\obj-gear-common.c" />
+    <ClCompile Include="$(RootDirectory)src\common\obj-tval.c" />
+    <ClCompile Include="$(RootDirectory)src\common\option.c" />
+    <ClCompile Include="$(RootDirectory)src\common\parser.c" />
+    <ClCompile Include="$(RootDirectory)src\common\randname.c" />
+    <ClCompile Include="$(RootDirectory)src\common\sockbuf.c" />
+    <ClCompile Include="$(RootDirectory)src\common\source.c" />
+    <ClCompile Include="$(RootDirectory)src\common\util.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-bitflag.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-color.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-dice.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-expression.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-file.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-form.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-rand.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-set.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-type.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-util.c" />
+    <ClCompile Include="$(RootDirectory)src\common\z-virt.c" />
+  </ItemGroup>
+  <ItemGroup Label="ServerHeaders">
+    <ClInclude Include="$(RootDirectory)src\server\alloc.h" />
+    <ClInclude Include="$(RootDirectory)src\server\cave.h" />
+    <ClInclude Include="$(RootDirectory)src\server\channel.h" />
+    <ClInclude Include="$(RootDirectory)src\server\cmds.h" />
+    <ClInclude Include="$(RootDirectory)src\server\display-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\effect-handler.h" />
+    <ClInclude Include="$(RootDirectory)src\server\effects-info.h" />
+    <ClInclude Include="$(RootDirectory)src\server\effects.h" />
+    <ClInclude Include="$(RootDirectory)src\server\game-world.h" />
+    <ClInclude Include="$(RootDirectory)src\server\generate.h" />
+    <ClInclude Include="$(RootDirectory)src\server\help-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\hint.h" />
+    <ClInclude Include="$(RootDirectory)src\server\history-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\house.h" />
+    <ClInclude Include="$(RootDirectory)src\server\init.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-attack-effects.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-dun-profiles.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-dungeon-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-effects.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-origins.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-randart-properties.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-room-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-rooms.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-terrain-flags.h" />
+    <ClInclude Include="$(RootDirectory)src\server\list-wild-feats.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mangbandPCH1.h" />
+    <ClInclude Include="$(RootDirectory)src\server\map-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\message.h" />
+    <ClInclude Include="$(RootDirectory)src\server\metaclient.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-attack.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-blows.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-desc.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-group.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-init.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-list-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-list.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-lore-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-lore.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-make.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-move.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-msg.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-predicate.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-spell.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-summon.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-timed.h" />
+    <ClInclude Include="$(RootDirectory)src\server\mon-util.h" />
+    <ClInclude Include="$(RootDirectory)src\server\monster.h" />
+    <ClInclude Include="$(RootDirectory)src\server\netserver.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-chest.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-curse.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-desc.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-gear.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-ignore.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-info.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-init.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-inscrip.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-knowledge.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-list-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-list.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-make.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-pile.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-power.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-properties.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-randart.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-slays.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\obj-util.h" />
+    <ClInclude Include="$(RootDirectory)src\server\object.h" />
+    <ClInclude Include="$(RootDirectory)src\server\party.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-attack.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-birth.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-calcs.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-history.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-path.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-quest.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-spell.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-timed.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player-util.h" />
+    <ClInclude Include="$(RootDirectory)src\server\player.h" />
+    <ClInclude Include="$(RootDirectory)src\server\prefs-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\project.h" />
+    <ClInclude Include="$(RootDirectory)src\server\s-angband.h" />
+    <ClInclude Include="$(RootDirectory)src\server\s-util.h" />
+    <ClInclude Include="$(RootDirectory)src\server\savefile.h" />
+    <ClInclude Include="$(RootDirectory)src\server\sched-win.h" />
+    <ClInclude Include="$(RootDirectory)src\server\score-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\score.h" />
+    <ClInclude Include="$(RootDirectory)src\server\store.h" />
+    <ClInclude Include="$(RootDirectory)src\server\target-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\target.h" />
+    <ClInclude Include="$(RootDirectory)src\server\trap.h" />
+    <ClInclude Include="$(RootDirectory)src\server\visuals-ui.h" />
+    <ClInclude Include="$(RootDirectory)src\server\wilderness.h" />
+    <ClInclude Include="$(RootDirectory)src\server\z-quark.h" />
+    <ClInclude Include="$(RootDirectory)src\server\z-queue.h" />
+    <ClInclude Include="$(RootDirectory)src\server\z-textblock.h" />
+  </ItemGroup>
+  <ItemGroup Label="ServerSrc">
+    <ClCompile Include="$(RootDirectory)src\server\account.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cave-map.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cave-square.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cave-view.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cave.c" />
+    <ClCompile Include="$(RootDirectory)src\server\channel.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cmd-cave.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cmd-innate.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cmd-misc.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cmd-obj.c" />
+    <ClCompile Include="$(RootDirectory)src\server\cmd-pickup.c" />
+    <ClCompile Include="$(RootDirectory)src\server\control.c" />
+    <ClCompile Include="$(RootDirectory)src\server\display-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\effect-handler-attack.c" />
+    <ClCompile Include="$(RootDirectory)src\server\effect-handler-general.c" />
+    <ClCompile Include="$(RootDirectory)src\server\effects-info.c" />
+    <ClCompile Include="$(RootDirectory)src\server\effects.c" />
+    <ClCompile Include="$(RootDirectory)src\server\game-world.c" />
+    <ClCompile Include="$(RootDirectory)src\server\gen-cave.c" />
+    <ClCompile Include="$(RootDirectory)src\server\gen-chunk.c" />
+    <ClCompile Include="$(RootDirectory)src\server\gen-monster.c" />
+    <ClCompile Include="$(RootDirectory)src\server\gen-room.c" />
+    <ClCompile Include="$(RootDirectory)src\server\gen-util.c" />
+    <ClCompile Include="$(RootDirectory)src\server\generate.c" />
+    <ClCompile Include="$(RootDirectory)src\server\help-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\history-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\house.c" />
+    <ClCompile Include="$(RootDirectory)src\server\init.c" />
+    <ClCompile Include="$(RootDirectory)src\server\knowledge-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\load.c" />
+    <ClCompile Include="$(RootDirectory)src\server\main.c" />
+    <ClCompile Include="$(RootDirectory)src\server\map-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\message.c" />
+    <ClCompile Include="$(RootDirectory)src\server\metaclient.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-attack.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-blows.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-desc.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-group.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-init.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-list-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-list.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-lore-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-lore.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-make.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-move.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-msg.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-predicate.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-spell.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-summon.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-timed.c" />
+    <ClCompile Include="$(RootDirectory)src\server\mon-util.c" />
+    <ClCompile Include="$(RootDirectory)src\server\netserver.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-chest.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-curse.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-desc.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-gear.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-ignore.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-info.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-init.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-inscrip.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-knowledge.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-list-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-list.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-make.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-pile.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-power.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-properties.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-randart.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-slays.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\obj-util.c" />
+    <ClCompile Include="$(RootDirectory)src\server\party.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-attack.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-birth.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-calcs.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-history.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-path.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-quest.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-spell.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-timed.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player-util.c" />
+    <ClCompile Include="$(RootDirectory)src\server\player.c" />
+    <ClCompile Include="$(RootDirectory)src\server\prefs-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\project-feat.c" />
+    <ClCompile Include="$(RootDirectory)src\server\project-mon.c" />
+    <ClCompile Include="$(RootDirectory)src\server\project-obj.c" />
+    <ClCompile Include="$(RootDirectory)src\server\project-player.c" />
+    <ClCompile Include="$(RootDirectory)src\server\project.c" />
+    <ClCompile Include="$(RootDirectory)src\server\s-util.c" />
+    <ClCompile Include="$(RootDirectory)src\server\save.c" />
+    <ClCompile Include="$(RootDirectory)src\server\savefile.c" />
+    <ClCompile Include="$(RootDirectory)src\server\sched-unix.c" />
+    <ClCompile Include="$(RootDirectory)src\server\sched-win.c" />
+    <ClCompile Include="$(RootDirectory)src\server\score-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\score.c" />
+    <ClCompile Include="$(RootDirectory)src\server\store.c" />
+    <ClCompile Include="$(RootDirectory)src\server\target-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\target.c" />
+    <ClCompile Include="$(RootDirectory)src\server\trap.c" />
+    <ClCompile Include="$(RootDirectory)src\server\visuals-ui.c" />
+    <ClCompile Include="$(RootDirectory)src\server\wilderness.c" />
+    <ClCompile Include="$(RootDirectory)src\server\z-quark.c" />
+    <ClCompile Include="$(RootDirectory)src\server\z-queue.c" />
+    <ClCompile Include="$(RootDirectory)src\server\z-textblock.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(RootDirectory)lib\icons\att-128.png" />
+    <Image Include="$(RootDirectory)lib\icons\att-16.png" />
+    <Image Include="$(RootDirectory)lib\icons\att-256.png" />
+    <Image Include="$(RootDirectory)lib\icons\att-32.png" />
+    <Image Include="$(RootDirectory)lib\icons\att-512.png" />
+    <Image Include="$(RootDirectory)src\win\AngbandServer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(RootDirectory)src\win\AngbandServer.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
