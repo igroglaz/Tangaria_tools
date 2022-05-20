@@ -55,6 +55,12 @@
     <Filter Include="SDL">
       <UniqueIdentifier>{b90ce1d6-6cab-46ed-9a41-f38278fcbeb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CommonFiles">
+      <UniqueIdentifier>{11ff37a0-becf-4edf-b652-5c4673b75bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CommonFiles">
+      <UniqueIdentifier>{53391cf0-0f1c-4772-ab02-ca1d523d156c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(RootDirectory)src\win\png.h">
