@@ -68,7 +68,7 @@
     <SDLOutputDir>$([System.IO.Path]::GetFullPath('$(ParentOfRoot)SDL2Output\'))</SDLOutputDir>
     <NetcodeType>WinsockNetcode</NetcodeType>
     <!--Later add netcode option SDLNetCode, to use SDL_net based code for the netcode instead-->
-    <SDLLibraryType>SDL2</SDLLibraryType>
+    <SDLLibraryType>LegacySDL</SDLLibraryType>
 	<UserProjectSettingsFile>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)TangeriaSDLClient.vcxproj.user'))</UserProjectSettingsFile>
     <!--Option of Modern for later C or ANSI for C99/C89-->
     <CStandardType>ANSI</CStandardType>
