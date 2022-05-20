@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{1304C40B-728A-448C-8EBF-3A8C562B8CAC}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
@@ -398,22 +398,27 @@
             <BuildOrder>67</BuildOrder>
         </ResourceCompile>
         <LibFiles Include="PWMAngband\src\_SDL\freetype.lib" Condition="'$(Platform)'=='Win32'">
+            <VirtualFolder>{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}</VirtualFolder>
             <BuildOrder>68</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <LibFiles Include="PWMAngband\src\_SDL\SDL.lib" Condition="'$(Platform)'=='Win32'">
+            <VirtualFolder>{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}</VirtualFolder>
             <BuildOrder>69</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <LibFiles Include="PWMAngband\src\_SDL\SDL_image.lib" Condition="'$(Platform)'=='Win32'">
+            <VirtualFolder>{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}</VirtualFolder>
             <BuildOrder>70</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <LibFiles Include="PWMAngband\src\_SDL\SDL_mixer.lib" Condition="'$(Platform)'=='Win32'">
+            <VirtualFolder>{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}</VirtualFolder>
             <BuildOrder>71</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <LibFiles Include="PWMAngband\src\_SDL\SDL_ttf.lib" Condition="'$(Platform)'=='Win32'">
+            <VirtualFolder>{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}</VirtualFolder>
             <BuildOrder>72</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
@@ -444,6 +449,9 @@
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k270.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp270.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                 </Excluded_Packages>
+                <VFOLDERS>
+                    <VFOLDER ID="{3F3F4E84-47F1-4BF4-B912-FDFD38A4535A}" name="LibFiles"/>
+                </VFOLDERS>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="PWMAngband\src\common\sockbuf.c" Configuration="Debug" Class="ProjectFile">
