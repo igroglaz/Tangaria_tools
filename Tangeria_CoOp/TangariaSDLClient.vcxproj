@@ -61,7 +61,7 @@
   <!--Support for multiple SDL compiles; Change SDLLibraryType value to switch usage of SDL-->
   <PropertyGroup Label="UserMacros">
     <ParentOfRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\'))</ParentOfRoot>
-    <RootDirectory>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\PWMAngband\'))</RootDirectory>
+    <RootDirectory>$([System.IO.Path]::GetFullPath('$(ParentOfRoot)\TangeriaCoop\'))</RootDirectory>
     <SourceRoot>$([System.IO.Path]::GetFullPath('$(RootDirectory)\src\'))</SourceRoot>
     <WinIncludeRoot>$([System.IO.Path]::GetFullPath('$(SourceRoot)\win\'))</WinIncludeRoot>
     <LibDataDir>$([System.IO.Path]::GetFullPath('$(RootDirectory)\lib\'))</LibDataDir>
@@ -69,22 +69,22 @@
     <NetcodeType>WinsockNetcode</NetcodeType>
     <!--Later add netcode option SDLNetCode, to use SDL_net based code for the netcode instead-->
     <SDLLibraryType>SDL2</SDLLibraryType>
-	<UserProjectSettingsFile>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)TangeriaSDLClient.vcxproj.user'))</UserProjectSettingsFile>
-    <!--Option of Modern for later C or ANSI for C99/C89-->
-    <CStandardType>ANSI</CStandardType>
+    <LibraryUsageMode>UsingLibFiles</LibraryUsageMode>
+    <!--Use DLLInsteadOfLib as alternative option later-->
+    <UserProjectSettingsFile>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)TangeriaSDLClient.vcxproj.user'))</UserProjectSettingsFile>
   </PropertyGroup>
   <!--Import macro overrides from user props-->
-  <Import Project="$(UserProjectSettingsFile)"  Condition="exists('$(UserProjectSettingsFile)')"/>
+  <Import Project="$(UserProjectSettingsFile)" Condition="exists('$(UserProjectSettingsFile)')" />
   <PropertyGroup>
     <!--     <ZLibDir>$([System.IO.Path]::GetFullPath('$(ParentOfRoot)\zlib-win64\'))</ZLibDir> -->
-    <ZLibLibrary Condition="'$(ZLibLibrary)'=='' Or !Exists('$(ZLibLibrary)')">$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\$(Configuration)\zlib.lib'))</ZLibLibrary>
-    <ZLibDLL>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\zlib.dll'))</ZLibDLL>
+    <ZLibLibrary>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\zlib.lib'))</ZLibLibrary>
+    <!--     <ZLibDLL>$([System.IO.Path]::GetFullPath('$(RootDirectory)IntegratedDLLs\$(Platform)\zlib.dll'))</ZLibDLL> -->
   </PropertyGroup>
   <PropertyGroup>
     <!--     <LibPngDir>$([System.IO.Path]::GetFullPath('$(ParentOfRoot)\libpng\'))</LibPngDir> -->
     <!--Define LibPngDir to use non-default LibPng directory-->
-    <LibPngLibrary Condition="!Exists('$(LibPngLibrary)')">$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\$(Configuration)\libpng.lib'))</LibPngLibrary>
-    <LibPngDLL>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\libpng.dll'))</LibPngDLL>
+    <LibPngLibrary>$([System.IO.Path]::GetFullPath('$(WinIncludeRoot)$(Platform)\libpng.lib'))</LibPngLibrary>
+    <LibPngDLL>$([System.IO.Path]::GetFullPath('$(RootDirectory)IntegratedDLLs\$(Platform)\libpng.dll'))</LibPngDLL>
   </PropertyGroup>
   <Choose>
     <!-- Using SDL 2.X files (including SDL_Net later to replace WinSocket code)-->
@@ -134,17 +134,6 @@
         <FreeTypeLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)freetype.lib'))</FreeTypeLibrary>
       </PropertyGroup>
     </When>
-    <When Condition="'$(SDLLibraryType)'=='HybridSDL'">
-      <PropertyGroup>
-        <SDLLibraryType>SDL</SDLLibraryType>
-        <SDLDir>$([System.IO.Path]::GetFullPath('$(SourceRoot)_SDL2\'))</SDLDir>
-        <SDLLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)$(Platform)\SDL2.lib'))</SDLLibrary>
-        <SDLImageLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)$(Platform)\SDL2_image.lib'))</SDLImageLibrary>
-        <SDLMixerLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)$(Platform)\SDL2_mixer.lib'))</SDLMixerLibrary>
-        <SDLTTFLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)$(Platform)\SDL2_ttf.lib'))</SDLTTFLibrary>
-        <FreeTypeLibrary>$([System.IO.Path]::GetFullPath('$(SDLDir)$(Platform)\freetype.lib'))</FreeTypeLibrary>
-      </PropertyGroup>
-    </When>
     <Otherwise>
       <!--SDL 1.X Option-->
       <PropertyGroup>
@@ -159,7 +148,7 @@
     </Otherwise>
   </Choose>
   <PropertyGroup Label="GlobalIncludes">
-    <IncludePath>$(MSBuildProjectDirectory)\src;$(WinIncludeRoot);$(SDLDir)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\src;$(WinIncludeRoot);$(IncludePath);$(SDLDir)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='Win32'">
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)...\lib\um\x86;$(LibraryPath)</LibraryPath>
@@ -192,16 +181,16 @@
       <PreprocessorDefinitions Condition="'$(SDLLibraryType)'=='ExternalSDL2'">%(PreprocessorDefinitions);USE_EXTERNALSDL2;</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(SDLLibraryType)'=='LegacySDL' Or '$(SDLLibraryType)'=='SDL'">%(PreprocessorDefinitions);SOUND_SDL;USE_SDL;</PreprocessorDefinitions>
       <!-- 	  <PreprocessorDefinitions Condition="'$(NetcodeType)'=='UseAlternativeNetcode'">%(PreprocessorDefinitions);USING_SdlNetcode</PreprocessorDefinitions> -->
-	  <PreprocessorDefinitions Condition="'$(NetcodeType)'!='UseAlternativeNetcode'">%(PreprocessorDefinitions);_WINSOCK_DEPRECATED_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(NetcodeType)'!='UseAlternativeNetcode'">%(PreprocessorDefinitions);_WINSOCK_DEPRECATED_NO_WARNINGS</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)'=='Release'">%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);SOUND;USE_PRIVATE_PATHS;WIN32;_WINDOWS;STRICT;WINDOWS;_CRT_SECURE_NO_WARNINGS;_CONSOLE;BUILDINGWithVS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <CompileAs>CompileAsC</CompileAs>
       <DisableSpecificWarnings>4703;2057;2055</DisableSpecificWarnings>
-      <LanguageStandard_C Condition="'$(CStandardType)'=='Modern'">stdc17</LanguageStandard_C>
-      <DisableLanguageExtensions Condition="'$(CStandardType)'=='ANSI'">true</DisableLanguageExtensions>
+      <!--<DisableLanguageExtensions>true</DisableLanguageExtensions>-->
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

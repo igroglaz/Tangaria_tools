@@ -1,17 +1,18 @@
-
+*/Release_Win32/*
+*/Release_x64/**
 *.local
-
 **/.vs/**
 **/__history/**
-**/BCCFiles/
+**/BCCFiles/**
 **/.vs/**
 **/ObjectFiles/**
-**/ObjectFiles/**
 
-x_Tangaria_build/PWMAngband
-
-x_Tangaria_build/Win64/
-
+**/Win32/Debug/**
+**/Win32/Release/**
+**/Win64/Debug/**
+**/Win64/Release/**
+x_Tangaria_build/PWMAngband/**
 *.user
 
-x_Tangaria_build/Win32/
+
+
