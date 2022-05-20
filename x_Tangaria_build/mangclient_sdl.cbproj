@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{1304C40B-728A-448C-8EBF-3A8C562B8CAC}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
@@ -49,9 +49,9 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppConsoleApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(IncludePath)</IncludePath>
+        <IncludePath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;PWMAngband\src\client\;$(IncludePath)</IncludePath>
         <_TCHARMapping>char</_TCHARMapping>
-        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;..\Tangaria\;..\Tangaria\PWMAngband\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>PWMAngband\src\win\;PWMAngband\src\common\;PWMAngband\src\client\;PWMAngband\src\client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>mangclient_sdl</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -87,14 +87,14 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\Tangaria\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>PWMAngband\</FinalOutputDir>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;SOUND_SDL;USE_SDL;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\Tangaria\PWMAngband\src\win;D:\GitHub\Tangaria\PWMAngband\src\common;D:\GitHub\Tangaria\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
-        <BCC_OutputDir>D:\GitHub\Tangaria\PWMAngband\</BCC_OutputDir>
+        <BCC_IncludePath>PWMAngband\src\win;PWMAngband\src\common;PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
+        <BCC_OutputDir>PWMAngband\</BCC_OutputDir>
         <BCC_PCHCache>true</BCC_PCHCache>
-        <ILINK_LibraryPath>D:\GitHub\Tangaria\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
