@@ -1,4 +1,4 @@
-cd D:\GitHub\Tangaria\PWMAngband\src\bcc32c\
+cd C:\GitHub\Tangaria\PWMAngband\src\bcc32c\
 del ..\client\c-cmd.obj
 del ..\client\main.obj
 del ..\client\set_focus.obj
