@@ -62,7 +62,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <ILINK_LibraryPath>D:\GitHub\PWMA\PWMAngband\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>C:\GitHub\PWMA\PWMAngband\src\_SDL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -87,14 +87,14 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>D:\GitHub\PWMA\PWMAngband\</FinalOutputDir>
+        <FinalOutputDir>C:\GitHub\PWMA\PWMAngband\</FinalOutputDir>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <BCC_Defines>STRICT;BCC_IDE;WINDOWS;SOUND_SDL;USE_SDL;$(BCC_Defines)</BCC_Defines>
-        <BCC_IncludePath>D:\GitHub\PWMA\PWMAngband\src\win;D:\GitHub\PWMA\PWMAngband\src\common;D:\GitHub\PWMA\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
-        <BCC_OutputDir>D:\GitHub\PWMA\PWMAngband\</BCC_OutputDir>
+        <BCC_IncludePath>C:\GitHub\PWMA\PWMAngband\src\win;C:\GitHub\PWMA\PWMAngband\src\common;C:\GitHub\PWMA\PWMAngband\src\client;$(BCC_IncludePath)</BCC_IncludePath>
+        <BCC_OutputDir>C:\GitHub\PWMA\PWMAngband\</BCC_OutputDir>
         <BCC_PCHCache>true</BCC_PCHCache>
-        <ILINK_LibraryPath>D:\GitHub\PWMA\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <ILINK_LibraryPath>C:\GitHub\PWMA\PWMAngband\src\_SDL;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
