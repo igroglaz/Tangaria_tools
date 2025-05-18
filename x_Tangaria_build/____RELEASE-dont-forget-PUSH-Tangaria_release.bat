@@ -30,3 +30,17 @@ xcopy /E /I /Y C:\GitHub\Tangaria\PWMAngband\lib\customize C:\games\Tangaria\lib
 xcopy /E /I /Y C:\GitHub\Tangaria\PWMAngband\lib\tiles\tangaria C:\games\Tangaria\lib\tiles\tangaria
 
 pause
+
+C:\GitHub\Tangaria\zip-CLOUD.bat
+
+pause
+
+cd /d C:\GitHub\Tangaria_release
+
+git add .
+
+git commit -m "%date% %time%"
+
+git push
+
+pause
